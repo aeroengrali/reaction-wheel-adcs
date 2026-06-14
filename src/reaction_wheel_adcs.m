@@ -4,7 +4,7 @@ function reaction_wheel_adcs()
 %
 %   Personal project (Ali Murtaza). A rigid satellite performs a large-
 %   angle (60 deg) rest-to-rest eigenaxis slew under quaternion-feedback
-%   PD control. Control torque is realised by three body-axis reaction
+%   PID control. Control torque is realised by three body-axis reaction
 %   wheels with torque and momentum limits; a small constant external
 %   disturbance drives a secular wheel-momentum build-up, illustrating
 %   why momentum management (desaturation) is needed.
@@ -28,7 +28,7 @@ tau_d = [5e-3; -2e-3; 1e-3];           % constant external disturbance [N m]
 % Quaternion PID:  u = Kp*qe_vec + Ki*int(qe_vec) - Kd*omega
 % The integral term cancels the steady-state pointing bias produced by the
 % constant external disturbance (pure PD would leave Kp*qe = -tau_d offset).
-Kp = 0.80; Ki = 0.040; Kd = 7.2;       % near-critical damping (zeta ~ 0.9)
+Kp = 0.80; Ki = 0.040; Kd = 7.2;       % well-damped: monotonic slew, no overshoot
 ei = [0;0;0]; ei_lim = 0.5;            % integral state + anti-windup clamp
 i_gate = deg2rad(5);                    % conditional integration band
 
